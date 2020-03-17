@@ -22,6 +22,9 @@ public class BasicNavigation {
 
         driver.get("http://google.com"); //to open webpage
 
+        driver.manage().window().maximize();  // to maximize windows
+        driver.manage().window().fullscreen();
+
         Thread.sleep(4000); //for demo purpose only!!!
 
         //U can also see it as tab name: It returns title
@@ -35,6 +38,16 @@ public class BasicNavigation {
         }else {
             System.out.println("Fail");
         }
+
+        driver.navigate().to("http://amazon.com");
+
+        if (driver.getTitle().toLowerCase().contains("amazon")) {
+            System.out.println("Test Passed");
+        }else {
+            System.out.println("Test Failed");
+        }
+
+        Thread.sleep(3000);
 
         driver.close(); // Browser doesnt close itself
 
