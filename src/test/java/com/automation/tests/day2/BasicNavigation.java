@@ -39,7 +39,9 @@ public class BasicNavigation {
             System.out.println("Fail");
         }
 
-        driver.navigate().to("http://amazon.com");
+        driver.navigate().to("http://amazon.com");  //opens amazon homepage in first browser page
+
+
 
         if (driver.getTitle().toLowerCase().contains("amazon")) {
             System.out.println("Test Passed");
@@ -49,7 +51,33 @@ public class BasicNavigation {
 
         Thread.sleep(3000);
 
+        driver.navigate().back();    // comes back to google!
+
+        verifyEquals(driver.getTitle(), "Google");
+
+        Thread.sleep(4000);
+
+        driver.navigate().forward();
+        System.out.println("Title of the Page is ..."+driver.getTitle());
+         Thread.sleep(3000);
+
+         //driver.navigate().to("url"); == driver.get("url");
+
+        System.out.println("Current URL where U r at is "+driver.getCurrentUrl());
+
+        driver.navigate().refresh();
+
+        Thread.sleep(2000);
+
         driver.close(); // Browser doesnt close itself
 
+    }
+
+    public static void verifyEquals(String arg1, String arg2){
+        if (arg1.equals(arg2)){
+            System.out.println("Verification OK");
+        }else {
+            System.out.println("Verification Fail");
+        }
     }
 }
