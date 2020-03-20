@@ -43,13 +43,30 @@ public class FindElementById {
         WebElement logout = driver.findElement(By.linkText("Logout"));
 
         String href = logout.getAttribute("href");
+        String className = logout.getAttribute("class");
 
-        System.out.println(href);
+        System.out.println("Attribute : "+href);
+        System.out.println("Class name is : "+className);
 
         logout.click();
-        Thread.sleep(4000);
+        Thread.sleep(3000);
 
-        // driver.quit();
+
+        //======================TRY WITH WRONG CREDENTIALS=======================
+
+        driver.findElement(By.name("username")).sendKeys("Tommy");
+        Thread.sleep(2000);
+        driver.findElement(By.name("password")).sendKeys("WrongPassword");
+        Thread.sleep(3000);
+        driver.findElement(By.id("wooden_spoon")).click();
+        Thread.sleep(3000);
+
+        String errorMessage = driver.findElement(By.id("flash")).getText();
+
+        System.out.println("Error Message Displayed: "+errorMessage);
+
+
+        driver.quit();
 
     }
 }
