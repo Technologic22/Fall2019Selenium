@@ -36,8 +36,18 @@ public class FindElementById {
         }
 
 
+        //if there are some space inside text use partialLinkText (it is like Contains method rather than equals method)
+        //logout button is actually a link, not a button!
+        //every element with <a>tag is a link
+        //partialLinkText - not complete match required!
+        WebElement logout = driver.findElement(By.linkText("Logout"));
 
+        String href = logout.getAttribute("href");
 
+        System.out.println(href);
+
+        logout.click();
+        Thread.sleep(4000);
 
         // driver.quit();
 
