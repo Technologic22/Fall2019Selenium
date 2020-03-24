@@ -26,10 +26,25 @@ public class FindElementsTest {
         for (WebElement link: links) {
 
             System.out.println(link.getText());
+            System.out.println(link.getAttribute("href"));
+//            link.click();
+//            Thread.sleep(2000);
+//            driver.navigate().back();
 
         }
 
+        //Interview QUESTION: what is Stale Elements Exception!!!
 
+        for (int i = 1; i < links.size(); i++) {
+
+            links.get(i).click();
+            Thread.sleep(2500);
+            driver.navigate().back();
+            Thread.sleep(2000);
+           links=driver.findElements(By.tagName("a"));  ///
+
+        }
+            driver.quit();
 
     }
 }
