@@ -1,26 +1,19 @@
 package com.automation.tests.warmUp;
 
 import com.automation.utilities.DriverFactory;
-import net.bytebuddy.asm.Advice;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.sql.SQLOutput;
 import java.util.Arrays;
 
 public class March4 {
-
-
 
     public static void main(String[] args) throws Exception{
 
         eBayTest();
         amazonTest();
         wikiTest();
-
 
     }
 
