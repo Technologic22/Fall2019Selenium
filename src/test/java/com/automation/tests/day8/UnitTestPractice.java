@@ -25,8 +25,8 @@ public class UnitTestPractice {
 
     @Test  (description = "verify if methhod can reverse a string!")   //Annotation
     public void test(){
-                    String expected="CBA";
-                    String actual = reverseString("ABC");
+                    String expected="ABC";
+                    String actual = reverseString("CBA");
              //Assert class is coming from TestNG(also Junit!)
         //to compare any data types: string, char, int, double, arrays, objects
         //to verify if expected = actual
