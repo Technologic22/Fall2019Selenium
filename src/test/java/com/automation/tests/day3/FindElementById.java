@@ -1,5 +1,6 @@
 package com.automation.tests.day3;
 
+import com.automation.utilities.BrowserUtils;
 import com.automation.utilities.DriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,15 +16,15 @@ public class FindElementById {
 
         driver.findElement(By.name("username")).sendKeys("tomsmith");
 
-        Thread.sleep(3000);
+        BrowserUtils.wait(2);
 
         driver.findElement(By.name("password")).sendKeys("SuperSecretPassword");
 
-        Thread.sleep(2000);
+        BrowserUtils.wait(2);
 
         driver.findElement(By.id("wooden_spoon")).click();
 
-        Thread.sleep(3000);
+        BrowserUtils.wait(3);
 
         String expected = "Welcome to the Secure Area. When you are done click logout below.";
 
@@ -49,17 +50,17 @@ public class FindElementById {
         System.out.println("Class name is : "+className);
 
         logout.click();
-        Thread.sleep(3000);
+        BrowserUtils.wait(2);
 
 
         //======================TRY WITH WRONG CREDENTIALS=======================
 
         driver.findElement(By.name("username")).sendKeys("Tommy");
-        Thread.sleep(2000);
+        BrowserUtils.wait(2);
         driver.findElement(By.name("password")).sendKeys("WrongPassword");
-        Thread.sleep(3000);
+        BrowserUtils.wait(2);
         driver.findElement(By.id("wooden_spoon")).click();
-        Thread.sleep(3000);
+        BrowserUtils.wait(2);
 
         String errorMessage = driver.findElement(By.id("flash")).getText();
 

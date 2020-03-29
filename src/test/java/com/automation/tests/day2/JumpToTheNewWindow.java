@@ -1,5 +1,6 @@
 package com.automation.tests.day2;
 
+import com.automation.utilities.BrowserUtils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,7 +16,7 @@ public class JumpToTheNewWindow {
 
         driver.get("http://practice.cybertekschool.com/open_new_tab");
 
-        Thread.sleep(5000);
+        BrowserUtils.wait(3);
 
         //every window has some id, this is called window handle
         //based on windows handle, we can swtich between windows

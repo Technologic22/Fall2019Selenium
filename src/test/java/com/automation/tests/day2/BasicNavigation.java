@@ -1,11 +1,12 @@
 package com.automation.tests.day2;
 
+import com.automation.utilities.BrowserUtils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class BasicNavigation {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args){
 
         WebDriverManager.chromedriver().setup();
         //to start Se script we need:
@@ -23,7 +24,7 @@ public class BasicNavigation {
         driver.manage().window().maximize();  // to maximize windows
         driver.manage().window().fullscreen();
 
-        Thread.sleep(4000); //for demo purpose only!!!
+        BrowserUtils.wait(4); //for demo purpose only!!!
 
         //U can also see it as tab name: It returns title
         String title = driver.getTitle();// <title> Some Title </title> text
@@ -47,17 +48,17 @@ public class BasicNavigation {
             System.out.println("Test Failed");
         }
 
-        Thread.sleep(3000);
+        BrowserUtils.wait(3);
 
         driver.navigate().back();    // comes back to google!
 
         verifyEquals(driver.getTitle(), "Google");
 
-        Thread.sleep(4000);
+        BrowserUtils.wait(3);
 
         driver.navigate().forward();
         System.out.println("Title of the Page is ..."+driver.getTitle());
-         Thread.sleep(3000);
+         BrowserUtils.wait(3);
 
          //driver.navigate().to("url"); == driver.get("url");
 
@@ -65,7 +66,7 @@ public class BasicNavigation {
 
         driver.navigate().refresh();
 
-        Thread.sleep(2000);
+        BrowserUtils.wait(2);
 
         driver.close(); // Browser doesnt close itself
 

@@ -1,5 +1,6 @@
 package com.automation.tests.day4;
 
+import com.automation.utilities.BrowserUtils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,7 +16,7 @@ public class FindElementsTest {
         WebDriverManager.chromedriver().version("79").setup();
         WebDriver driver = new ChromeDriver();
         driver.get("http://practice.cybertekschool.com");
-        Thread.sleep(3000);
+        BrowserUtils.wait(2);
 
         //How to collect all links from the page
         // all links have <a> tag
@@ -38,9 +39,9 @@ public class FindElementsTest {
         for (int i = 1; i < links.size(); i++) {
 
             links.get(i).click();
-            Thread.sleep(2500);
+            BrowserUtils.wait(2);
             driver.navigate().back();
-            Thread.sleep(2000);
+            BrowserUtils.wait(2);
            links=driver.findElements(By.tagName("a"));  ///
 
         }
