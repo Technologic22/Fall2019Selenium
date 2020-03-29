@@ -36,15 +36,40 @@ public class SearchTests {
                 System.out.println("word = " + word);
 
                 Assert.assertTrue(true);
+
             }
-
-
         }
     }
+    /*
+    * given user  for amazon.com
+    * when user enters "java" as a search item
+    * and user clicks on the seach button
+    * then user clicks on the first seach item
+    * and user verifies that title of the first search item contains java
+    * */
 
     @Test (description = "Search for Java book on amazon")
     public void amazonSearchTest(){
         driver.get("http://amazon.com");
+        BrowserUtils.wait(5);
+        driver.manage().window().maximize();   /// sometimes object can be out of view for Selenium
+        driver.findElement(By.id("twotabsearchtextbox")).sendKeys("Java", Keys.ENTER);
+        BrowserUtils.wait(3);
+
+        List<WebElement> searchItems =driver.findElements(By.xpath("//h2//a"));
+        //find all links inside the h2 tag, because h2 is not clickable!
+
+        BrowserUtils.wait(4);
+        searchItems.get(2).click();
+        BrowserUtils.wait(2);
+
+        String bookTitle = driver.findElement(By.id("title")).getText();
+        System.out.println(bookTitle);
+        BrowserUtils.wait(2);
+        Assert.assertTrue(bookTitle.contains("Java"));
+            //h2 elements are not clickable although they contain links
+        //hence we collected all hyperlinks
+        //every hyperlink represents search item
 
 
     }
@@ -58,7 +83,7 @@ public class SearchTests {
     @AfterMethod     //close browser and destroy webdriver  + Cleanupp
     public void teardown() {
         BrowserUtils.wait(3);
-       // driver.quit();
+        driver.quit();
     }
 
 }
