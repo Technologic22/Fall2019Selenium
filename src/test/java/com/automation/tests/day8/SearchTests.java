@@ -32,14 +32,21 @@ public class SearchTests {
         for (WebElement eachItem : searchItems) {
             String  word=eachItem.getText();
                     //if there is a text print it
-            if (!word.isEmpty()){
-                //System.out.println("word = " + word);
+            if (!word.isEmpty() && word.toLowerCase().contains("java")){
+                System.out.println("word = " + word);
 
-                Assert.assertTrue(word.toLowerCase().contains("java"));
+                Assert.assertTrue(true);
             }
 
 
         }
+    }
+
+    @Test (description = "Search for Java book on amazon")
+    public void amazonSearchTest(){
+        driver.get("http://amazon.com");
+
+
     }
 
     @BeforeMethod       //setup webdriver
