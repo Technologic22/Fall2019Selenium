@@ -68,7 +68,7 @@ public class SearchTests {
         BrowserUtils.wait(2);
         Assert.assertTrue(bookTitle.contains("Java"));
             //h2 elements are not clickable although they contain links
-        //hence we collected all hyperlinks
+        //hence we collected all hyperlinks (hyperlinks must be clickable)
         //every hyperlink represents search item
 
 
