@@ -43,7 +43,7 @@ public class LoginTests {
         assertEquals(actual, expected);
     }
 
-    @Test(description = "Login as store manager and verify that tile is equals to Dashboard")
+    @Test(description = "Login as store manager and verify that title is equals to Dashboard")
     public void loginAsStoreManager(){
         driver.findElement(usernameBy).sendKeys(username);
         driver.findElement(passwordBy).sendKeys(password, Keys.ENTER);
