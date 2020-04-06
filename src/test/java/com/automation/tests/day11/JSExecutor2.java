@@ -37,7 +37,7 @@ public class JSExecutor2 {
     @Test
     public void clickTest(){
         WebElement link = driver.findElement(By.linkText("Multiple Buttons"));
-        System.out.println("link = " + link);
+        BrowserUtils.wait(2);
         //link.click();
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click()", link);
@@ -45,10 +45,39 @@ public class JSExecutor2 {
         // as part of JS code,
         //arguments listed after (,-comma!) use index to get specific webelement
         //Webelement arguments = {element, link, link2, link3}
+        BrowserUtils.wait(3);
+        WebElement button6= driver.findElement(By.id("disappearing_button"));
+        js.executeScript("arguments[0].click()", button6);  //argument[0]=button6,0-Bc its the first element after comma
+        BrowserUtils.wait(3);
 
+        WebElement result = driver.findElement(By.id("result"));
+
+        assertEquals(result.getText(), "Now it's gone!");
 
     }
 
+        @Test
+        public void textInputTest(){
+        WebElement form=driver.findElement(By.linkText("Form Authentication"));
+        BrowserUtils.wait(1);
+            JavascriptExecutor js= (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].click()", form);   //form.click();
+
+        BrowserUtils.wait(3);
+        WebElement username= driver.findElement(By.name("username"));
+        WebElement password= driver.findElement(By.name("password"));
+        WebElement loginButton=driver.findElement(By.id("wooden_spoon"));
+            //to get text from input box - get attribute value
+            //to enter text, set attribute value
+            js.executeScript("arguments[0].setAttribute('value','tomsmith')", username);
+            js.executeScript("arguments[0].setAttribute('value', 'SuperSecretPassword')", password);
+            js.executeScript("arguments[0].click()", loginButton);
+
+        BrowserUtils.wait(3);
+
+
+
+        }
 
     @BeforeMethod
     public void setup() {
