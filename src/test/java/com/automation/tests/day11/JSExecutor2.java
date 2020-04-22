@@ -67,15 +67,45 @@ public class JSExecutor2 {
         WebElement username= driver.findElement(By.name("username"));
         WebElement password= driver.findElement(By.name("password"));
         WebElement loginButton=driver.findElement(By.id("wooden_spoon"));
-            //to get text from input box - get attribute value
-            //to enter text, set attribute value
-            js.executeScript("arguments[0].setAttribute('value','tomsmith')", username);
-            js.executeScript("arguments[0].setAttribute('value', 'SuperSecretPassword')", password);
-            js.executeScript("arguments[0].click()", loginButton);
+        //to get text from input box - get attribute value
+        //to enter text, set attribute value
+        js.executeScript("arguments[0].setAttribute('value','tomsmith')", username, password);
+        BrowserUtils.wait(2);
+//      js.executeScript("arguments[0].setAttribute('value', 'SuperSecretPassword')", password); // U can use either
+        js.executeScript("arguments[1].setAttribute('value','SuperSecretPassword')", username, password);
+        BrowserUtils.wait(2);
+        js.executeScript("arguments[0].click()", loginButton);
+        BrowserUtils.wait(2);
+        String expected="Welcome to the Secure Area. When you are done click logout below.";
+        String subheader=js.executeScript("return document.getElementsByClassName('subheader')[0].textContent").toString();
 
+        assertEquals(subheader, expected);
         BrowserUtils.wait(3);
 
 
+
+        }
+
+        @Test
+        public void scrollToElement(){
+        BrowserUtils.wait(4);
+        WebElement link = driver.findElement(By.linkText("Cybertek School"));
+        JavascriptExecutor js= (JavascriptExecutor) driver;
+
+        js.executeScript("arguments[0].scrollIntoView(true)", link);
+
+        }
+
+        @Test
+        public void scrollTest(){
+        driver.navigate().to("http://practice.cybertekschool.com/infinite_scroll");
+        JavascriptExecutor js=(JavascriptExecutor) driver;
+
+
+            for (int i = 0; i <20 ; i++) {
+                js.executeScript("window.scrollBy(0, 1500)");
+                BrowserUtils.wait(1);
+            }
 
         }
 
@@ -83,8 +113,9 @@ public class JSExecutor2 {
     public void setup() {
         driver = DriverFactory.createDriver("chrome");
         driver.get("http://practice.cybertekschool.com/");
-        driver.manage().window().maximize();
         BrowserUtils.wait(3);
+        driver.manage().window().maximize();
+        BrowserUtils.wait(2);
     }
 
     @AfterMethod
