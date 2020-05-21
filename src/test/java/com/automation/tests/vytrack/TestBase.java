@@ -1,0 +1,29 @@
+package com.automation.tests.vytrack;
+
+import com.automation.utilities.ConfigurationReader;
+import com.automation.utilities.Driver;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+
+public abstract class TestBase {
+    //will be visible in the subclass, regardless on subclass location(same package or no)
+    protected WebDriver wait;
+    protected Actions actions;
+
+    @BeforeMethod
+    public void setup(){
+        String qa1= ConfigurationReader.getProperty("qa1");
+        Driver.getDriver();
+        Driver.getDriver().manage().window().maximize();
+        wait= (WebDriver) new WebDriverWait(Driver.getDriver(), 12);
+        actions= new Actions(Driver.getDriver());
+    }
+
+    @AfterMethod
+    public void tearDown(){
+        Driver.closeDriver();
+    }
+}

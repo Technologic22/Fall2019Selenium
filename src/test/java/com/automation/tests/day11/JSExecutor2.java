@@ -81,12 +81,11 @@ public class JSExecutor2 {
 
         assertEquals(subheader, expected);
         BrowserUtils.wait(3);
-
-
-
         }
 
-        @Test
+
+
+    @Test
         public void scrollToElement(){
         BrowserUtils.wait(4);
         WebElement link = driver.findElement(By.linkText("Cybertek School"));
@@ -100,7 +99,6 @@ public class JSExecutor2 {
         public void scrollTest(){
         driver.navigate().to("http://practice.cybertekschool.com/infinite_scroll");
         JavascriptExecutor js=(JavascriptExecutor) driver;
-
 
             for (int i = 0; i <20 ; i++) {
                 js.executeScript("window.scrollBy(0, 1500)");
