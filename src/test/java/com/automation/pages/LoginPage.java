@@ -25,6 +25,9 @@ public class LoginPage {
     @FindBy (linkText= "Forgot your password?")
     private WebElement forgotPassword;
 
+    @FindBy (css = "div[class='alert alert-error']")
+    private WebElement warningMessage;
+
     public LoginPage(){
         //to connect our WebDriver, page class and page factory
         //pageFactory - used to use @FindByAnnotations
@@ -33,6 +36,9 @@ public class LoginPage {
                   //initelements - required to put into constructor of every page class
     }
 
+    public String getWarningMessageText(){
+        return warningMessage.getText();
+    }
     /**
      *  Method to login, version #1
      *  login as 'specific' user

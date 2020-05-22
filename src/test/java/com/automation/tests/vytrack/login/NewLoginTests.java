@@ -19,9 +19,8 @@ public class NewLoginTests extends TestBase {
 
         LoginPage loginPage = new LoginPage();
         loginPage.login();
-
         Assert.assertEquals(Driver.getDriver().getTitle(), "Dashboard");
-
     }
+
 
 }
