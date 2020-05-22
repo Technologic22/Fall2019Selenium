@@ -10,15 +10,15 @@ import org.testng.annotations.BeforeMethod;
 
 public abstract class TestBase {
     //will be visible in the subclass, regardless on subclass location(same package or no)
-    protected WebDriver wait;
+    protected WebDriverWait wait;
     protected Actions actions;
 
     @BeforeMethod
     public void setup(){
-        String qa1= ConfigurationReader.getProperty("qa1");
-        Driver.getDriver();
+        String URL= ConfigurationReader.getProperty("qa1");
+        Driver.getDriver().get(URL);
         Driver.getDriver().manage().window().maximize();
-        wait= (WebDriver) new WebDriverWait(Driver.getDriver(), 12);
+        wait= new WebDriverWait(Driver.getDriver(), 12);
         actions= new Actions(Driver.getDriver());
     }
 
