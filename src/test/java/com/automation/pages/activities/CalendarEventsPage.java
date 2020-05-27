@@ -18,6 +18,12 @@ public class CalendarEventsPage extends AbstractPageBase {
     @FindBy (css = "[id^=date_selector_oro_calendar_event_form_start]")
     private WebElement startDate;
 
+    @FindBy (css = "[id^=time_selector_oro_calendar_event_form_start]")
+    private WebElement startTime;
+
+    @FindBy(css = "[id^=time_selector_oro_calendar_event_form_end]")
+    private WebElement endTime;
+
     public String getOwnerName(){
         BrowserUtils.waitForPageToLoad(10);
         //wait for element to be present in the  DOM
@@ -34,6 +40,19 @@ public class CalendarEventsPage extends AbstractPageBase {
     public String getStartDate(){
         BrowserUtils.waitForPageToLoad(10);
         wait.until(ExpectedConditions.visibilityOf(startDate));
+        BrowserUtils.scrollTo(startDate);
         return startDate.getAttribute("value");
+    }
+
+    public String getStartTime(){
+        BrowserUtils.waitForPageToLoad(10);
+        wait.until(ExpectedConditions.visibilityOf(startTime));
+        return startTime.getAttribute("value");
+    }
+
+    public String getEndTime(){
+        BrowserUtils.waitForPageToLoad(10);
+        wait.until(ExpectedConditions.visibilityOf(endTime));
+        return endTime.getAttribute("value");
     }
 }

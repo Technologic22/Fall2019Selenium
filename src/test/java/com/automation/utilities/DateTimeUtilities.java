@@ -1,7 +1,10 @@
 package com.automation.utilities;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class DateTimeUtilities {
     /**
@@ -20,6 +23,21 @@ public class DateTimeUtilities {
      * https://www.journaldev.com/17899/java-simpledateformat-java-date-format
      */
     public static String getCurrentDate(String format){
-        return LocalDate.now().format(DateTimeFormatter.ofPattern("MMM dd, yyyy"));
+        return LocalDate.now(ZoneId.of("GMT-7")).format(DateTimeFormatter.ofPattern("MMM dd, yyyy"));
+    }
+
+    /**
+     * This method returns difference between end and start time
+     * @param start time
+     * @param end end
+     * @param format i.e. h:m a
+     * @return difference between end time and start time as a long
+     */
+
+    public long  getTimeDifference (String start, String end, String format){
+        LocalTime startTime= LocalTime.parse(start, DateTimeFormatter.ofPattern(format));
+        LocalTime endTime= LocalTime.parse(end, DateTimeFormatter.ofPattern(format));
+
+        return ChronoUnit.HOURS.between(startTime,endTime);
     }
 }

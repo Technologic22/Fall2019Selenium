@@ -55,5 +55,7 @@ public class BrowserUtils {
         return textValues;
     }
 
-
+    public static void scrollTo(WebElement element){
+        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+    }
 }
