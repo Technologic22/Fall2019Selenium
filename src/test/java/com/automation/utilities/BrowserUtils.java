@@ -50,7 +50,9 @@ public class BrowserUtils {
     public static List<String> getTextFromWebElements(List<WebElement> elements){
         List <String> textValues=new ArrayList<>();
         for (WebElement element : elements) {
+            if (!element.getText().isEmpty()){
             textValues.add(element.getText());
+            }
         }
         return textValues;
     }

@@ -33,7 +33,7 @@ public class LoginPage {
         //pageFactory - used to use @FindByAnnotations
         //PageFactory - helps to find elements easier
         PageFactory.initElements(Driver.getDriver(), this);    // u can also use This=LoginPage.class
-                  //initelements - required to put into constructor of every page class
+                  //initElements - required to put into constructor of every page class
     }
 
     public String getWarningMessageText(){
