@@ -46,7 +46,13 @@ public class NewCalendarEventsPageTests extends AbstractTestBase {
         CalendarEventsPage calendarEventsPage= new CalendarEventsPage();
 
         loginPage.login();
+        calendarEventsPage.navigateTo("Activities", "Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
-        String startTime= calendarEventsPage.g
+        String startTime= calendarEventsPage.getStartTime();
+        String endTime= calendarEventsPage.getEndTime();
+        String format= "h:mm a";  //format such as: 5:20 AM
+        long actual= DateTimeUtilities.getTimeDifference(startTime, endTime,format);
+
+        Assert.assertEquals(actual, 1, "Time difference is not correct");
     }
 }

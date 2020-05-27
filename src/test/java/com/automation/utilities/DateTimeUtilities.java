@@ -30,11 +30,11 @@ public class DateTimeUtilities {
      * This method returns difference between end and start time
      * @param start time
      * @param end end
-     * @param format i.e. h:m a
+     * @param format i.e. h:mm a (12:00 PM, 00:00 AM)
      * @return difference between end time and start time as a long
      */
 
-    public long  getTimeDifference (String start, String end, String format){
+    public static long  getTimeDifference (String start, String end, String format){
         LocalTime startTime= LocalTime.parse(start, DateTimeFormatter.ofPattern(format));
         LocalTime endTime= LocalTime.parse(end, DateTimeFormatter.ofPattern(format));
 
