@@ -1,10 +1,15 @@
 package com.automation.utilities;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,5 +64,23 @@ public class BrowserUtils {
 
     public static void scrollTo(WebElement element){
         ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+    }
+
+    /**
+     *
+     * @param name screenshot name
+     * @return path to the screenshot
+     */
+    public static String getScreenshot (String name){
+        String path=System.getProperty("user.dir")+"/test-output/screenshots"+name+".png";
+        TakesScreenshot takesScreenshot= (TakesScreenshot) Driver.getDriver();
+        File source= takesScreenshot.getScreenshotAs(OutputType.FILE);   //Screenshgot itself
+        File destination= new File(path);  // directory where to savescreenshot
+        try {
+            FileUtils.copyFile(source, destination);                /// copying file to previously defined location
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return path;
     }
 }

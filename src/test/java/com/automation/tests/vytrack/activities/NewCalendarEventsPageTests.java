@@ -7,20 +7,22 @@ import com.automation.utilities.DateTimeUtilities;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class NewCalendarEventsPageTests extends AbstractTestBase {
 
+    LoginPage loginPage = new LoginPage();
+    CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
     /**
- * Test Case: Default options
- * Login as sales manager
- * Go to Activities --> Calendar Events
- * Click on Create Calendar Event
- * Default owner name should be current
- * */
-
+     * Test Case: Default options
+     * Login as sales manager
+     * Go to Activities --> Calendar Events
+     * Click on Create Calendar Event
+     * Default owner name should be current user/
+     **/
     @Test
     public void defaultOptionsTest(){
-        LoginPage loginPage= new LoginPage();
-        CalendarEventsPage calendarEventsPage= new CalendarEventsPage();
 
         loginPage.login();
         calendarEventsPage.navigateTo("Activities", "Calendar Events");
@@ -42,10 +44,7 @@ public class NewCalendarEventsPageTests extends AbstractTestBase {
      **/
     @Test
     public void timeDifference(){
-        LoginPage loginPage= new LoginPage();
-        CalendarEventsPage calendarEventsPage= new CalendarEventsPage();
-
-        loginPage.login();
+       loginPage.login();
         calendarEventsPage.navigateTo("Activities", "Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
         String startTime= calendarEventsPage.getStartTime();
@@ -54,5 +53,14 @@ public class NewCalendarEventsPageTests extends AbstractTestBase {
         long actual= DateTimeUtilities.getTimeDifference(startTime, endTime,format);
 
         Assert.assertEquals(actual, 1, "Time difference is not correct");
+    }
+
+    @Test
+    public void verifyColumnNamesTest(){
+        loginPage.login();
+        calendarEventsPage.navigateTo("Activities", "Calendar Events");
+        calendarEventsPage.clickToCreateCalendarEvent();
+        List<String>expected= Arrays.asList("TITLE", "CALENDAR", "START", "END", "RECURRENT", "RECURRENCE", "INVITATION STATUS");
+        Assert.assertEquals(calendarEventsPage.getColumnNames(), expected);
     }
 }
