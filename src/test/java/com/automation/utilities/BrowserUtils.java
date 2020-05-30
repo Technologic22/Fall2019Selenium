@@ -10,7 +10,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class BrowserUtils {
@@ -72,9 +75,22 @@ public class BrowserUtils {
      * @return path to the screenshot
      */
     public static String getScreenshot (String name){
-        String path=System.getProperty("user.dir")+"/test-output/screenshots"+name+".png";
+       //adding date and time to screenshot name, to make screen shot unique
+        name=new Date().toString().replace(" ", "_").replace(":","_") +"_"+name;
+        // where we gonna store screenshot
+        String path="";
+        if (System.getProperty("os.name").toLowerCase().contains("mac")){
+            path=System.getProperty("user.dir")+"/test-output/screenshots"+name+".png";
+        }else {
+            path=System.getProperty("user.dir")+"\\test-output\\screenshots\\"+name+".png";
+        }
+        System.out.println("OS name: "+System.getProperty("os.name"));
+        System.out.println("Screenshot Path: "+path);
+        //Since our reference type is WebDriver, we cannot see methods from Interface TakeScreenshot
+        //that is why we do casting as in JS executor
         TakesScreenshot takesScreenshot= (TakesScreenshot) Driver.getDriver();
-        File source= takesScreenshot.getScreenshotAs(OutputType.FILE);   //Screenshgot itself
+        //- takes screenshot of web Browser and saves as a .png file
+        File source= takesScreenshot.getScreenshotAs(OutputType.FILE);
         File destination= new File(path);  // directory where to savescreenshot
         try {
             FileUtils.copyFile(source, destination);                /// copying file to previously defined location

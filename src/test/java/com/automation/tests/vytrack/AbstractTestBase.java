@@ -1,10 +1,11 @@
 package com.automation.tests.vytrack;
 
+import com.automation.utilities.BrowserUtils;
 import com.automation.utilities.ConfigurationReader;
 import com.automation.utilities.Driver;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -23,7 +24,14 @@ public abstract class AbstractTestBase {
     }
 
     @AfterMethod
-    public void tearDown(){
+    public void tearDown(ITestResult iTestResult) {
+        //ITestResult class Describes the result of a test
+        //if Failed, take a screenshot
+        if (iTestResult.getStatus()== ITestResult.FAILURE){
+            //screenshgot will have a name of the test
+            BrowserUtils.getScreenshot(iTestResult.getName());
+        }
         Driver.closeDriver();
+
     }
 }
