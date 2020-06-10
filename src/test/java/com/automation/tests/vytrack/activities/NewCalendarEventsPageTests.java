@@ -65,6 +65,38 @@ public class NewCalendarEventsPageTests extends AbstractTestBase {
         Assert.assertEquals(calendarEventsPage.getColumnNames(), expected);
     }
 
-//    @DataProvider
-//    public Object[][]
+    @Test(dataProvider = "calendarEvents")
+    public void createCalendarEventTest(String title, String description){
+       //when U ve more than 1 test, 1st one pass, others fail
+        //U get 'SESSION ID NULL' exception, 'Cuz driver was not initialized on time
+        //to solve: just initialize pageobject inside a test
+
+        LoginPage loginPage = new LoginPage();
+        CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
+
+        //only for extent report. To create a test in html report
+           test=report.createTest("Create calendar event for "+title);
+    loginPage.login();
+    calendarEventsPage.navigateTo("Activities", "Calendar Events");
+    calendarEventsPage.clickToCreateCalendarEvent();
+    calendarEventsPage.enterCalendarEventTitle(title);
+    calendarEventsPage.enterCalendarEventDescription(description);
+    calendarEventsPage.clickOnSaveAndClose();
+
+    //verify that calendar event info is correct
+        Assert.assertEquals(calendarEventsPage.getGeneralInfoDescriptionText(), description);
+        Assert.assertEquals(calendarEventsPage.getGeneralInfoTitleText(), title);
+
+            //for extent report, specify that test passed in report (if all assertions passed!)
+        test.pass("Calendar event created successfully!");
+    }
+
+    @DataProvider
+    public Object[][] calendarEvents(){
+        return new Object[][]{
+                {"Daily Stand-Up", "Scrum meeting to provide updates!"},
+                {"Sprint Review", "Team discussing previous sprint!"},
+                {"Sprint Planning", "Discussing backlog for following sprint"}
+        };
+    }
 }

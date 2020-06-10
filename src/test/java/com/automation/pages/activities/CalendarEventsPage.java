@@ -2,6 +2,7 @@ package com.automation.pages.activities;
 
 import com.automation.pages.AbstractPageBase;
 import com.automation.utilities.BrowserUtils;
+import com.automation.utilities.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -44,14 +45,43 @@ public class CalendarEventsPage extends AbstractPageBase {
     @FindBy (xpath = "(//div[@class='control-label'])[1]")
     private WebElement generalInfoTitle;
 
-    @FindBy(xpath = "//label[text()='Description']//following-sibling::div//p[1]")
+    @FindBy(xpath = "//label[text()='Description']//following-sibling::div/div")
     private WebElement generalInfoDescription;
 
 
+    public void enterCalendarEventTitle(String titleValue){
+        BrowserUtils.waitForPageToLoad(10);
+        wait.until(ExpectedConditions.visibilityOf(title)).sendKeys(titleValue);
+    }
+
+    public void enterCalendarEventDescription(String description){
+        //wait until frame is available and switch to it
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(descriptionFrame));
+        descriptionTextArea.sendKeys(description);
+        driver.switchTo().defaultContent(); //exit from the frame
+    }
+
+    public void clickOnSaveAndClose(){
+        wait.until(ExpectedConditions.elementToBeClickable(saveAndClose)).click();
+    }
+
+    public String getGeneralInfoTitleText(){
+        BrowserUtils.waitForPageToLoad(15);
+        return generalInfoTitle.getText();
+    }
+
+    public String getGeneralInfoDescriptionText(){
+        BrowserUtils.waitForPageToLoad(15);
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//label[text()='Description']//following-sibling::div/div")));
+        return generalInfoDescription.getText();
+    }
+
+    //############@@@@@@@@@@@@@##################@@@@@@@@@@@@@@@@@@@@@################################@@@@@@@@@@@@@
 
     public List<String>getColumnNames(){
         BrowserUtils.waitForPageToLoad(10);
         return BrowserUtils.getTextFromWebElements(columnNames);
+        //exit from the frame
     }
 
     public String getOwnerName(){
