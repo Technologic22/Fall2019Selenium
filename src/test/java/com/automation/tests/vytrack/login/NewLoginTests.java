@@ -26,7 +26,7 @@ public class NewLoginTests extends AbstractTestBase {
         loginPage.login();
         //'info' is like system.out, but it goest to report as well
         test.info("Login as Store Manager");    //log some steps
-        Assert.assertEquals(Driver.getDriver().getTitle(), "Dashboar");
+        Assert.assertEquals(Driver.getDriver().getTitle(), "Dashboard");
         //if assertion passed, it will set the test status to passed in reports
         test.pass("Page title Dashboard was verified");
     }

@@ -29,7 +29,7 @@ public abstract class AbstractPageBase {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
-    public String getCurrentuserName(){
+    public String getCurrentUserName(){
         BrowserUtils.waitForPageToLoad(10);
         wait.until(ExpectedConditions.visibilityOf(currentUser));
         return currentUser.getText().trim();
