@@ -16,7 +16,7 @@ public class NewLoginTests extends AbstractTestBase {
      * Login and verify that page title is "Dashboard"
      */
 
-    @Test
+    @Test (groups = "smoke")
     public void verifyPageTitle(){
         //test --> ExtentTest object
         //we must add every test at the beginning
@@ -24,7 +24,7 @@ public class NewLoginTests extends AbstractTestBase {
         test=report.createTest("Verify Page Title");
         LoginPage loginPage = new LoginPage();
         loginPage.login();
-        //'info' is like system.out, but it goest to report as well
+        //'info' is like system.out, but it goes to report as well
         test.info("Login as Store Manager");    //log some steps
         Assert.assertEquals(Driver.getDriver().getTitle(), "Dashboard");
         //if assertion passed, it will set the test status to passed in reports
@@ -35,7 +35,7 @@ public class NewLoginTests extends AbstractTestBase {
  * Enter wrong credentials and verify waring message
  */
 
-@Test
+    @Test
     public void verifyWarningMessage(){
                  test=report.createTest("Verify Warning Message");
                 LoginPage loginPage= new LoginPage();

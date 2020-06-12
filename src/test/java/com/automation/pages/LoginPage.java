@@ -57,7 +57,7 @@ public class LoginPage {
      * Credentials retrieved from configuration.properties file
      */
     public void login(){
-        username.sendKeys(ConfigurationReader.getProperty("storemanager"));
+        username.sendKeys(ConfigurationReader.getProperty("store_manager"));
         password.sendKeys(ConfigurationReader.getProperty("password"), Keys.ENTER);
         BrowserUtils.wait(3);
     }

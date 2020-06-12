@@ -11,18 +11,37 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class BrowserUtils {
-    public static void wait (int seconds) {
+
+    /**
+     * Pause test for some time
+     *
+     * @param seconds
+     */
+    public static void wait(int seconds) {
         try {
-                Thread.sleep(1000*seconds);
-        }catch (InterruptedException e){
+            Thread.sleep(1000 * seconds);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * @param elements represents collection of WebElements
+     * @return collection of strings
+     */
+    public static List<String> getTextFromWebElements(List<WebElement> elements) {
+        List<String> textValues = new ArrayList<>();
+        for (WebElement element : elements) {
+            if (!element.getText().isEmpty()) {
+                textValues.add(element.getText());
+            }
+        }
+        return textValues;
     }
 
     /**
@@ -41,60 +60,54 @@ public class BrowserUtils {
     }
 
     /**
-     * Clicks on an Element using JS executor
+     * Clicks on an element using JavaScript
      *
      * @param element
      */
-    public static void clickWithJS (WebElement element){
+    public static void clickWithJS(WebElement element) {
         ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
         ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", element);
     }
 
     /**
+     * Scroll to element using JavaScript
      *
-     * @param elements- represents collection of web elements
-     * @return - collection os Strings
+     * @param element
      */
-    public static List<String> getTextFromWebElements(List<WebElement> elements){
-        List <String> textValues=new ArrayList<>();
-        for (WebElement element : elements) {
-            if (!element.getText().isEmpty()){
-            textValues.add(element.getText());
-            }
-        }
-        return textValues;
-    }
-
-    public static void scrollTo(WebElement element){
+    public static void scrollTo(WebElement element) {
         ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
     /**
-     *
      * @param name screenshot name
      * @return path to the screenshot
      */
-    public static String getScreenshot (String name){
-       //adding date and time to screenshot name, to make screen shot unique
-        name=new Date().toString().replace(" ", "_").replace(":","_") +"_"+name;
-        // where we gonna store screenshot
-        String path="";
-        if (System.getProperty("os.name").toLowerCase().contains("mac")){
-            path=System.getProperty("user.dir")+"/test-output/screenshots"+name+".png";
-        }else {
-            path=System.getProperty("user.dir")+"\\test-output\\screenshots\\"+name+".png";
+    public static String getScreenshot(String name) {
+        //adding date and time to screenshot name, to make screenshot unique
+        name = new Date().toString().replace(" ", "_").replace(":", "-") + "_" + name;
+        //where we gonna store a screenshot
+        String path ="";
+
+        if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+            path = System.getProperty("user.dir") + "/test-output/screenshots/" + name + ".png";
+        } else {
+            path = System.getProperty("user.dir") + "\\test-output\\screenshots\\" + name + ".png";
         }
-        System.out.println("OS name: "+System.getProperty("os.name"));
-        System.out.println("Screenshot Path: "+path);
-        //Since our reference type is WebDriver, we cannot see methods from Interface TakeScreenshot
-        //that is why we do casting as in JS executor
-        TakesScreenshot takesScreenshot= (TakesScreenshot) Driver.getDriver();
-        //- takes screenshot of web Browser and saves as a .png file
-        File source= takesScreenshot.getScreenshotAs(OutputType.FILE);
-        File destination= new File(path);  // directory where to savescreenshot
+
+        System.out.println("OS name: " + System.getProperty("os.name"));
+        System.out.println("Screenshot is here: " + path);
+        //since our reference type is a WebDriver
+        //we cannot see methods from TakesScreenshot interface
+        //that's why do casting
+        TakesScreenshot takesScreenshot = (TakesScreenshot) Driver.getDriver();
+        //take screenshot of web browser, and save it as a file
+        File source = takesScreenshot.getScreenshotAs(OutputType.FILE);
+        //where screenshot will be saved
+        File destination = new File(path);
         try {
-            FileUtils.copyFile(source, destination);                /// copying file to previously defined location
-        }catch (IOException e){
+            //copy file to the previously specified location
+            FileUtils.copyFile(source, destination);
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return path;

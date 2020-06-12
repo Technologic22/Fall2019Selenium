@@ -8,6 +8,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
@@ -29,34 +30,36 @@ public abstract class AbstractTestBase {
     @BeforeTest
     @Parameters("reportName")
     public void setupTest(@Optional String reportName){
-        System.out.println("reportName = " + reportName);
-        report=new ExtentReports();
-        String reportPath="";
-        //location of report file
+        System.out.println("Report name: " + reportName);
+        reportName = reportName == null ? "report.html" : reportName + ".html";
 
-        if (System.getProperty("os.name").toLowerCase().contains("win")){
-        reportPath=System.getProperty("user.dir")+"\\test-output\\report.html";
-    }else {
-        reportPath=System.getProperty("user.dir")+"/test-output/report.html";
-    }
+        report = new ExtentReports();
+
+        String reportPath = "";
+        //location of report file
+        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+            reportPath = System.getProperty("user.dir") + "\\test-output\\" + reportName;
+        } else {
+            reportPath = System.getProperty("user.dir") + "/test-output/" + reportName;
+        }
         //is a HTML report itself
-    htmlReporter=new ExtentHtmlReporter(reportPath);
-    //add it to the reporter
-    report.attachReporter(htmlReporter);
-    htmlReporter.config().setReportName("VYTRACK Test Automation Results");
+        htmlReporter = new ExtentHtmlReporter(reportPath);
+        //add it to the reporter
+        report.attachReporter(htmlReporter);
+        htmlReporter.config().setReportName("VYTRACK Test Automation Results");
     }
 
     @AfterTest
-    public void tearDownTest(){
-        report.flush();  //to release a report
+    public void afterTest() {
+        report.flush();//to release a report
     }
 
     @BeforeMethod
     public void setup(){
-        String URL= ConfigurationReader.getProperty("qa1");
+        String URL= ConfigurationReader.getProperty("qa3");
         Driver.getDriver().get(URL);
         Driver.getDriver().manage().window().maximize();
-        wait= new WebDriverWait(Driver.getDriver(), 12);
+        wait= new WebDriverWait(Driver.getDriver(), 20);
         actions= new Actions(Driver.getDriver());
     }
 
@@ -70,7 +73,7 @@ public abstract class AbstractTestBase {
             String screenshotPath= BrowserUtils.getScreenshot(iTestResult.getName());
             test.fail(iTestResult.getName());//attach test name that failed
             BrowserUtils.wait(2);
-            test.addScreenCaptureFromPath(screenshotPath);//attach screenshot
+            test.addScreenCaptureFromPath(screenshotPath, "Failed");//attach screenshot
             test.fail(iTestResult.getThrowable()); //attach console output
 
         }
