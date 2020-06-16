@@ -1,9 +1,11 @@
 package com.automation.tests.day25_excel_io;
 
+import com.automation.utilities.ExcelUtil;
 import org.apache.poi.ss.usermodel.*;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.util.Map;
 
 /**
  * NO WORRIES - about "?" on the excel file in IntelliJ
@@ -58,5 +60,20 @@ public class ReadDataFromExcel {
             }
             System.out.println();
         }
+    }
+
+    @Test
+    public void excelUtilityTest(){
+        String path="VytrackTestUsers.xlsx";
+        String spreadSheet="QA1-all";
+
+        ExcelUtil excelUtil = new ExcelUtil(path, spreadSheet);
+        excelUtil.getDataList().forEach(System.out::println);  // like a shortcut for foreach loop
+        //  excelUtil.getDataList().forEach(p -> System.out.println(p));  old way with lambda!
+
+        for (Map<String , String > record : excelUtil.getDataList()){
+            System.out.println(record);
+        }
+
     }
 }
