@@ -5,6 +5,9 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 
+/**
+ * NO WORRIES - about "?" on the excel file in IntelliJ
+ */
 public class ReadDataFromExcel {
 
     @Test
@@ -26,7 +29,24 @@ public class ReadDataFromExcel {
 
         //--extract string value
         String value=firstCell.getStringCellValue();
+        String secondCellValue=firstRow.getCell(1).getStringCellValue();
         System.out.println(value);
+        System.out.println(secondCellValue);
 
+        int lastCell=firstRow.getLastCellNum();
+        System.out.println("###____________###");
+        for (int i = 0; i <lastCell ; i++) {
+            System.out.print(firstRow.getCell(i)+" | ");
+        }
+        System.out.println();
+        System.out.println("----...............----");
+        //-- how to get number of rows
+        //--last row is 301-->>index is 300
+        //--index of last row
+        int numberOfRows=workSheet.getLastRowNum();
+        int numberOfRows2=workSheet.getPhysicalNumberOfRows();
+
+        System.out.println("\nIndex of last row : "+numberOfRows);
+        System.out.println("\nNumber of rows 2 :"+numberOfRows2);
     }
 }
