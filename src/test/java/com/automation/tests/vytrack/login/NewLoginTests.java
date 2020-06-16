@@ -71,13 +71,14 @@ public class NewLoginTests extends AbstractTestBase {
         };
     }
 
-    @Test (dataProvider = "credentialsfromExcelFile")
-    public void loginTestWithEcel(String execute, String username, String password, String firstname, String lastname, String result){
+    @Test (dataProvider = "credentialsFromExcel")
+    public void loginTestWithExcel(String execute, String username, String password, String firstname, String lastname, String result){
+        test=report.createTest("Login test for username: "+username);
         if (execute.equals("y")){
             LoginPage loginPage=new LoginPage();
             loginPage.login(username, password);
             test.info("Login as "+username);  //--log some steps
-            test.info(String.format("First name: %s, Last name: %s, Username: %s"));
+            test.info(String.format("First name: %s, Last name: %s, Username: %s", firstname,lastname,username));
             test.pass("Successfully logged in as "+username);
         }else {
             test.skip("Test was skipped for user "+username);
@@ -88,7 +89,7 @@ public class NewLoginTests extends AbstractTestBase {
 
     //Execute   username    password    firstname     lastname     result
     @DataProvider
-    public Object[][] credentialsFromExcelFile(){
+    public Object[][] credentialsFromExcel(){
         String path="VytrackTestUsers.xlsx";
         String spreadSheet="QA3-short";
         ExcelUtil excelUtil= new ExcelUtil(path, spreadSheet);
