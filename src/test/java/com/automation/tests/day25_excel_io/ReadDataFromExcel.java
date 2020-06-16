@@ -76,4 +76,13 @@ public class ReadDataFromExcel {
         }
 
     }
+
+    @Test
+    public void getColumnNamesTest(){
+        String path="VytrackTestUsers.xlsx";
+        String spreadSheet="QA1-all";
+        ExcelUtil excelUtil = new ExcelUtil(path, spreadSheet);
+
+        System.out.println(excelUtil.getColumnsNames());
+    }
 }
