@@ -19,7 +19,7 @@ public class JSExecutor {
     @BeforeMethod
     public void setup(){
 //        driver = DriverFactory.createDriver("chrome");
-        WebDriverManager.chromedriver().version("79").setup();
+        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
     }
 
