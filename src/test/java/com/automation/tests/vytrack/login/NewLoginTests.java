@@ -18,7 +18,7 @@ public class NewLoginTests extends AbstractTestBase {
      * Login and verify that page title is "Dashboard"
      */
 
-    static  int row=1;
+
 
     @Test (groups = "smoke")
     public void verifyPageTitle(){
@@ -89,29 +89,7 @@ public class NewLoginTests extends AbstractTestBase {
         }
     }
 
-    @Test (dataProvider = "credentialsFromExcel")
-    public void loginTestWithExcel2(String execute, String username, String password, String firstname, String lastname, String result){
-        String path="VytrackTestUsers.xlsx";
-        String spreadSheet="QA3-short";
-        ExcelUtil excelUtil= new ExcelUtil(path, spreadSheet);
-
-        test=report.createTest("Login test for username: "+username);
-        if (execute.equals("y")){
-            LoginPage loginPage=new LoginPage();
-            loginPage.login(username, password);
-            test.info("Login as "+username);  //--log some steps
-            test.info(String.format("First name: %s, Last name: %s, Username: %s", firstname,lastname,username));
-            test.pass("Successfully logged in as "+username);
-            excelUtil.setCellData("PASSED","result", row++);
-        }else {
-            test.skip("Test was skipped for user "+username);
-            excelUtil.setCellData("SKIPPED", "result", row++);
-            //-to skip some test in testNG
-            throw new SkipException("Test was skipped for user: "+username);
-        }
-    }
-
-    //Execute   username    password    firstname     lastname     result
+        //Execute   username    password    firstname     lastname     result
     @DataProvider
     public Object[][] credentialsFromExcel(){
         String path="VytrackTestUsers.xlsx";
