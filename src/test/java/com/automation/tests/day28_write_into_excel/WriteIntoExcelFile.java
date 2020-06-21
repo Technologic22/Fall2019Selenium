@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class WriteIntoExcelFile {
 
@@ -15,17 +16,21 @@ public class WriteIntoExcelFile {
         FileInputStream inputStream=new FileInputStream("VytrackTestUsers.xlsx");
         Workbook workbook= WorkbookFactory.create(inputStream);  //--!! U can also specify password!
         Sheet sheet=workbook.getSheet("QA3-short");
-        Row row=sheet.getRow(1);
-        Cell cell=row.getCell(row.getPhysicalNumberOfCells()-1);
+        Row row=sheet.getRow(1); ///--2nd row
+        Cell cell=row.getCell(5);
+
         System.out.println("Before "+cell.getStringCellValue());
-
         cell.setCellValue("FAILED"); //-- I am changing from 'n/a' to a 'Passed'
-
         System.out.println("After "+cell.getStringCellValue());
 
         Row firstRow=sheet.getRow(0);  //-- Get first cell
-        Cell newCell=firstRow.createCell(row.getLastCellNum()); //-- create new cell
+        Cell newCell=firstRow.createCell(6); //-- create new cell
         newCell.setCellValue("Date of Execution"); //--give the name to this cell
+
+        //--!! write date & Time to the second row of last Column!!!
+        Row secondRow=sheet.getRow(1);
+        Cell newCell2=secondRow.createCell(6); //--Create a cell
+        newCell2.setCellValue(LocalDate.now().toString());  //-- I will set current date and time into cell
 
         //--I create If I wanna write sth into excel file
         //-- dont forget to close excel file if U opened it
